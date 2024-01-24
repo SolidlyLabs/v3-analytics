@@ -7,12 +7,14 @@ import useHttpLocations from 'hooks/useHttpLocations'
 import { useActiveNetworkVersion } from 'state/application/hooks'
 //import { OptimismNetworkInfo } from 'constants/networks'
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
-import { ChainId } from '@uniswap/sdk-core'
+import { ChainId } from '../../constants/networks'
 
 export function chainIdToNetworkName(networkId: ChainId) {
   switch (networkId) {
     case ChainId.MAINNET:
       return 'ethereum'
+    case ChainId.FANTOM:
+      return 'fantom'
     case ChainId.ARBITRUM_ONE:
       return 'arbitrum'
     case ChainId.OPTIMISM:
@@ -29,7 +31,10 @@ export function chainIdToNetworkName(networkId: ChainId) {
 }
 
 const getTokenLogoURL = ({ address, chainId }: { address: string; chainId: ChainId }) => {
-  if (address == `0x777172D858dC1599914a1C4c6c9fC48c99a60990`) {
+  if (
+    address == `0x777172D858dC1599914a1C4c6c9fC48c99a60990` ||
+    address == `0x777CF5ba9C291A1A8f57FF14836F6F9dC5c0F9Dd`
+  ) {
     return `https://solidly.com/tokens/solid.png`
   } else {
     return `https://raw.githubusercontent.com/uniswap/assets/master/blockchains/${chainIdToNetworkName(
@@ -43,7 +48,7 @@ const StyledLogo = styled(Logo)<{ size: string }>`
   height: ${({ size }) => size};
   border-radius: ${({ size }) => size};
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
-  background-color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => '#191b1f'};
   color: ${({ theme }) => theme.text4};
 `
 
@@ -138,7 +143,7 @@ export default function CurrencyLogo({
     if (checkSummed && address) {
       const override = tempSources[address]
       return [
-        getTokenLogoURL({ address: checkSummed, chainId: activeNetwork.chainId }),
+        getTokenLogoURL({ address: checkSummed, chainId: activeNetwork.chainId as ChainId }),
         ...uriLocationsOptimism,
         ...uriLocationsArbitrum,
         ...uriLocationsPolygon,

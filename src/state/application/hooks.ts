@@ -16,6 +16,8 @@ import {
   avalancheBlockClient,
   baseBlockClient,
   baseClient,
+  fantomClient,
+  fantomBlockClient,
 } from 'apollo/client'
 import { NetworkInfo, SupportedNetwork } from 'constants/networks'
 import { useCallback, useMemo } from 'react'
@@ -136,8 +138,8 @@ export function useDataClient(): ApolloClient<NormalizedCacheObject> {
   switch (activeNetwork.id) {
     case SupportedNetwork.ETHEREUM:
       return client
-    //case SupportedNetwork.ARBITRUM:
-    //  return arbitrumClient
+    case SupportedNetwork.FANTOM:
+      return fantomClient
     //case SupportedNetwork.OPTIMISM:
     //  return optimismClient
     //case SupportedNetwork.POLYGON:
@@ -161,8 +163,8 @@ export function useBlockClient(): ApolloClient<NormalizedCacheObject> {
   switch (activeNetwork.id) {
     case SupportedNetwork.ETHEREUM:
       return blockClient
-    //case SupportedNetwork.ARBITRUM:
-    //  return arbitrumBlockClient
+    case SupportedNetwork.FANTOM:
+      return fantomBlockClient
     //case SupportedNetwork.OPTIMISM:
     //  return optimismBlockClient
     //case SupportedNetwork.POLYGON:

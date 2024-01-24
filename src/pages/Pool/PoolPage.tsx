@@ -214,7 +214,7 @@ export default function PoolPage({
                     </RowBetween>
                   </ButtonGray>
                 </StyledExternalLink>
-                <StyledExternalLink href={`https://solidly.com/liquidity/manage/${poolData.address}/`}>
+                <StyledExternalLink href={`https://solidly.com/swap/`}>
                   <ButtonPrimary width="100px" style={{ height: '44px' }}>
                     Trade
                   </ButtonPrimary>

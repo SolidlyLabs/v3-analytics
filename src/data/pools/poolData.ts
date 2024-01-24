@@ -9,6 +9,7 @@ import { useActiveNetworkVersion, useClients } from 'state/application/hooks'
 
 export const POOLS_BULK = (block: number | undefined, pools: string[]) => {
   let poolString = `[`
+  console.log('Logging pools:', pools)
   pools.map((address) => {
     return (poolString += `"${address}",`)
   })

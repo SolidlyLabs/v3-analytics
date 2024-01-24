@@ -1,15 +1,39 @@
 import OPTIMISM_LOGO_URL from '../assets/images/optimism.svg'
 import ARBITRUM_LOGO_URL from '../assets/images/arbitrum.svg'
 import ETHEREUM_LOGO_URL from '../assets/images/ethereum-logo.png'
+import FANTOM_LOGO_URL from '../assets/images/fantom-logo.png'
 import POLYGON_LOGO_URL from '../assets/images/polygon-logo.png'
 import CELO_LOGO_URL from '../assets/images/celo-logo.svg'
 import BNB_LOGO_URL from '../assets/images/bnb-logo.svg'
 import BASE_LOGO_URL from '../assets/images/base-logo.svg'
-import { ChainId } from '@uniswap/sdk-core'
 import AVALANCHE_LOGO_URL from '../assets/images/avalanche-logo.png'
+
+export enum ChainId {
+  MAINNET = 1,
+  FANTOM = 250,
+  GOERLI = 5,
+  SEPOLIA = 11155111,
+  OPTIMISM = 10,
+  OPTIMISM_GOERLI = 420,
+  OPTIMISM_SEPOLIA = 11155420,
+  ARBITRUM_ONE = 42161,
+  ARBITRUM_GOERLI = 421613,
+  ARBITRUM_SEPOLIA = 421614,
+  POLYGON = 137,
+  POLYGON_MUMBAI = 80001,
+  CELO = 42220,
+  CELO_ALFAJORES = 44787,
+  GNOSIS = 100,
+  MOONBEAM = 1284,
+  BNB = 56,
+  AVALANCHE = 43114,
+  BASE_GOERLI = 84531,
+  BASE = 8453,
+}
 
 export enum SupportedNetwork {
   ETHEREUM,
+  FANTOM,
   //ARBITRUM,
   //OPTIMISM,
   //POLYGON,
@@ -35,10 +59,21 @@ export const EthereumNetworkInfo: NetworkInfo = {
   id: SupportedNetwork.ETHEREUM,
   route: '',
   name: 'Ethereum',
-  bgColor: '#29b4cc',
-  primaryColor: '#29b4cc',
-  secondaryColor: '#f4cccc',
+  bgColor: '#cacbcf',
+  primaryColor: '#cacbcf',
+  secondaryColor: '#ffffff',
   imageURL: ETHEREUM_LOGO_URL,
+}
+
+export const FantomNetworkInfo: NetworkInfo = {
+  chainId: ChainId.FANTOM,
+  id: SupportedNetwork.FANTOM,
+  route: 'fantom',
+  name: 'Fantom',
+  bgColor: '#2d7aff',
+  primaryColor: '#2d7aff',
+  secondaryColor: '#ffffff',
+  imageURL: FANTOM_LOGO_URL,
 }
 
 //export const ArbitrumNetworkInfo: NetworkInfo = {
@@ -117,4 +152,4 @@ export const EthereumNetworkInfo: NetworkInfo = {
 //  imageURL: AVALANCHE_LOGO_URL,
 //}
 //
-export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [EthereumNetworkInfo]
+export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [EthereumNetworkInfo, FantomNetworkInfo]

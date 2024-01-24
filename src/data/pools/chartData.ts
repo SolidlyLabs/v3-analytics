@@ -53,7 +53,7 @@ export async function fetchPoolChartData(address: string, client: ApolloClient<N
       feeTier: string
     }
   }[] = []
-  const startTimestamp = 1619170975
+  const startTimestamp = 1692100880
   const endTimestamp = dayjs.utc().unix()
 
   let error = false

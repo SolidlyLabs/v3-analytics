@@ -12,7 +12,8 @@ import {
   //BNBNetworkInfo,
   //CeloNetworkInfo,
   NetworkInfo,
-  //PolygonNetworkInfo,
+  FantomNetworkInfo,
+  ChainId,
 } from 'constants/networks'
 import JSBI from 'jsbi'
 import { TokenAddressMap } from '../state/lists/hooks'
@@ -27,9 +28,9 @@ export function isAddress(value: any): string | false {
   }
 }
 
-const ETHERSCAN_PREFIXES: { [chainId: number]: string } = {
-  [SupportedChainId.MAINNET]: '',
-  //[SupportedChainId.ROPSTEN]: 'ropsten.',
+const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
+  [ChainId.MAINNET]: 'https://etherscan.io',
+  [ChainId.FANTOM]: 'https://ftmscan.com',
   //[SupportedChainId.RINKEBY]: 'rinkeby.',
   //[SupportedChainId.GOERLI]: 'goerli.',
   //[SupportedChainId.KOVAN]: 'kovan.',
@@ -43,7 +44,7 @@ export function getEtherscanLink(
   type: 'transaction' | 'token' | 'address' | 'block',
   networkVersion: NetworkInfo
 ): string {
-  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+  const prefix = BLOCK_EXPLORER_PREFIXES[networkVersion.chainId] ?? 'https://etherscan.io'
 
   switch (type) {
     case 'transaction': {

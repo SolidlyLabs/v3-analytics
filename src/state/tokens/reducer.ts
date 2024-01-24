@@ -67,6 +67,7 @@ export interface TokensState {
 export const initialState: TokensState = {
   byAddress: {
     [SupportedNetwork.ETHEREUM]: {},
+    [SupportedNetwork.FANTOM]: {},
   },
 }
 
@@ -84,6 +85,7 @@ export default createReducer(initialState, (builder) =>
     }) // add address to byAddress keys if not included yet
     .addCase(addTokenKeys, (state, { payload: { tokenAddresses, networkId } }) => {
       tokenAddresses.map((address) => {
+        console.log('networkId:', networkId, tokenAddresses)
         if (!state.byAddress[networkId][address]) {
           state.byAddress[networkId][address] = {
             poolAddresses: undefined,

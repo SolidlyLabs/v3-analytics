@@ -1,5 +1,7 @@
 import { RowFixed, RowBetween } from 'components/Row'
 import {
+  EthereumNetworkInfo,
+  FantomNetworkInfo,
   //AvalancheNetworkInfo,
   //BNBNetworkInfo,
   //CeloNetworkInfo,
@@ -14,7 +16,8 @@ import styled from 'styled-components'
 import { StyledInternalLink, TYPE } from 'theme'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { AutoColumn } from 'components/Column'
-import { EthereumNetworkInfo } from '../../constants/networks'
+//import { EthereumNetworkInfo } from '../../constants/networks'
+//import { useHistory } from 'react-router-dom'; // import useHistory from react-router-dom
 
 const Container = styled.div`
   position: relative;
@@ -90,9 +93,7 @@ const GreenDot = styled.div`
 export default function NetworkDropdown() {
   const [activeNetwork] = useActiveNetworkVersion()
   const theme = useTheme()
-
   const [showMenu, setShowMenu] = useState(false)
-
   const node = useRef<HTMLDivElement>(null)
   useOnClickOutside(node, () => setShowMenu(false))
 
@@ -104,7 +105,7 @@ export default function NetworkDropdown() {
           <TYPE.main fontSize="14px" color={theme.white} ml="8px" mt="-2px" mr="2px" style={{ whiteSpace: 'nowrap' }}>
             {activeNetwork.name}
           </TYPE.main>
-          {[EthereumNetworkInfo].includes(activeNetwork) ? null : (
+          {[EthereumNetworkInfo, FantomNetworkInfo].includes(activeNetwork) ? null : (
             <Badge bgColor={activeNetwork.primaryColor} style={{ margin: '0 4px' }}>
               L2
             </Badge>

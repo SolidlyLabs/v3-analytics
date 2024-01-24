@@ -2,7 +2,7 @@ import { useActiveNetworkVersion } from 'state/application/hooks'
 import { healthClient } from './../../apollo/client'
 import { useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
-import { EthereumNetworkInfo } from 'constants/networks'
+import { EthereumNetworkInfo, FantomNetworkInfo } from 'constants/networks'
 
 export const SUBGRAPH_HEALTH = gql`
   query health($name: Bytes) {
@@ -50,10 +50,10 @@ export function useFetchedSubgraphStatus(): {
     fetchPolicy: 'network-only',
     variables: {
       name:
-        activeNetwork === EthereumNetworkInfo
+        activeNetwork.chainId === EthereumNetworkInfo.chainId
           ? 'solidlylabs/solidly-v3'
-          : activeNetwork === EthereumNetworkInfo
-          ? 'solidlylabs/solidly-v3'
+          : activeNetwork.chainId === FantomNetworkInfo.chainId
+          ? 'solidlylabs/solidly-v3-fantom'
           : 'solidlylabs/solidly-v3',
     },
   })

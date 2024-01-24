@@ -47,7 +47,7 @@ async function fetchChartData(client: ApolloClient<NormalizedCacheObject>) {
     volumeUSD: string
     tvlUSD: string
   }[] = []
-  const startTimestamp = client === arbitrumClient ? 1630423606 : client === optimismClient ? 1636697130 : 1619170975
+  const startTimestamp = client === arbitrumClient ? 1693396228 : client === optimismClient ? 1693396228 : 1693396228
   const endTimestamp = dayjs.utc().unix()
 
   let error = false

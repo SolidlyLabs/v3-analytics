@@ -68,7 +68,7 @@ export default function Polling() {
   const [activeNetwork] = useActiveNetworkVersion()
   const [status] = useSubgraphStatus()
   const [isMounted, setIsMounted] = useState(true)
-  const latestBlock = activeNetwork === EthereumNetworkInfo ? status.headBlock : status.syncedBlock
+  const latestBlock = activeNetwork.chainId === EthereumNetworkInfo.chainId ? status.headBlock : status.syncedBlock
 
   useEffect(
     () => {
