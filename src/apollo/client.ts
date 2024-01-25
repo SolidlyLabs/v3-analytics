@@ -135,7 +135,7 @@ export const avalancheBlockClient = new ApolloClient({
 })
 
 export const arbitrumClient = new ApolloClient({
-  uri: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one?source=uniswap',
+  uri: 'https://api.thegraph.com/subgraphs/name/solidlylabs/solidly-v3-arbitrum',
   cache: new InMemoryCache({
     typePolicies: {
       Token: {

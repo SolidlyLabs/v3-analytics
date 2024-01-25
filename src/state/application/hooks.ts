@@ -140,6 +140,8 @@ export function useDataClient(): ApolloClient<NormalizedCacheObject> {
       return client
     case SupportedNetwork.FANTOM:
       return fantomClient
+    case SupportedNetwork.ARBITRUM:
+      return arbitrumClient
     //case SupportedNetwork.OPTIMISM:
     //  return optimismClient
     //case SupportedNetwork.POLYGON:
@@ -165,6 +167,8 @@ export function useBlockClient(): ApolloClient<NormalizedCacheObject> {
       return blockClient
     case SupportedNetwork.FANTOM:
       return fantomBlockClient
+    case SupportedNetwork.ARBITRUM:
+      return arbitrumBlockClient
     //case SupportedNetwork.OPTIMISM:
     //  return optimismBlockClient
     //case SupportedNetwork.POLYGON:

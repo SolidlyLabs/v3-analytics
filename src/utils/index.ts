@@ -31,6 +31,7 @@ export function isAddress(value: any): string | false {
 const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   [ChainId.MAINNET]: 'https://etherscan.io',
   [ChainId.FANTOM]: 'https://ftmscan.com',
+  [ChainId.ARBITRUM_ONE]: 'https://arbiscan.io',
   //[SupportedChainId.RINKEBY]: 'rinkeby.',
   //[SupportedChainId.GOERLI]: 'goerli.',
   //[SupportedChainId.KOVAN]: 'kovan.',

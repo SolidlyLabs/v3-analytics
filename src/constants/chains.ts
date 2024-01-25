@@ -5,7 +5,7 @@ export enum SupportedChainId {
   //GOERLI = 5,
   //KOVAN = 42,
 
-  //ARBITRUM_ONE = 42161,
+  ARBITRUM_ONE = 42161,
   //ARBITRUM_RINKEBY = 421611,
   //OPTIMISM = 10,
   //OPTIMISTIC_KOVAN = 69,

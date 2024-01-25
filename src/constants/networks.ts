@@ -34,7 +34,7 @@ export enum ChainId {
 export enum SupportedNetwork {
   ETHEREUM,
   FANTOM,
-  //ARBITRUM,
+  ARBITRUM,
   //OPTIMISM,
   //POLYGON,
   //CELO,
@@ -76,16 +76,16 @@ export const FantomNetworkInfo: NetworkInfo = {
   imageURL: FANTOM_LOGO_URL,
 }
 
-//export const ArbitrumNetworkInfo: NetworkInfo = {
-//  chainId: ChainId.ARBITRUM_ONE,
-//  id: SupportedNetwork.ARBITRUM,
-//  route: 'arbitrum',
-//  name: 'Arbitrum',
-//  imageURL: ARBITRUM_LOGO_URL,
-//  bgColor: '#0A294B',
-//  primaryColor: '#0490ED',
-//  secondaryColor: '#96BEDC',
-//}
+export const ArbitrumNetworkInfo: NetworkInfo = {
+  chainId: ChainId.ARBITRUM_ONE,
+  id: SupportedNetwork.ARBITRUM,
+  route: 'arbitrum',
+  name: 'Arbitrum',
+  imageURL: ARBITRUM_LOGO_URL,
+  bgColor: '#0A294B',
+  primaryColor: '#0490ED',
+  secondaryColor: '#96BEDC',
+}
 //
 //export const OptimismNetworkInfo: NetworkInfo = {
 //  chainId: ChainId.OPTIMISM,
@@ -152,4 +152,4 @@ export const FantomNetworkInfo: NetworkInfo = {
 //  imageURL: AVALANCHE_LOGO_URL,
 //}
 //
-export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [EthereumNetworkInfo, FantomNetworkInfo]
+export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [EthereumNetworkInfo, FantomNetworkInfo, ArbitrumNetworkInfo]

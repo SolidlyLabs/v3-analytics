@@ -87,6 +87,7 @@ export const initialState: PoolsState = {
   byAddress: {
     [SupportedNetwork.ETHEREUM]: {},
     [SupportedNetwork.FANTOM]: {},
+    [SupportedNetwork.ARBITRUM]: {},
     //[SupportedNetwork.OPTIMISM]: {},
     //[SupportedNetwork.POLYGON]: {},
     //[SupportedNetwork.CELO]: {},

@@ -36,6 +36,9 @@ const getTokenLogoURL = ({ address, chainId }: { address: string; chainId: Chain
     address == `0x777CF5ba9C291A1A8f57FF14836F6F9dC5c0F9Dd`
   ) {
     return `https://solidly.com/tokens/solid.png`
+  }
+  if (address == `0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0`) {
+    return `https://assets.coingecko.com/coins/images/18834/standard/wstETH.png?1696518295`
   } else {
     return `https://raw.githubusercontent.com/uniswap/assets/master/blockchains/${chainIdToNetworkName(
       chainId
