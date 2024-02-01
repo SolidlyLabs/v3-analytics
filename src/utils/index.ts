@@ -35,7 +35,8 @@ const BLOCK_EXPLORER_PREFIXES: { [chainId: number]: string } = {
   //[SupportedChainId.RINKEBY]: 'rinkeby.',
   //[SupportedChainId.GOERLI]: 'goerli.',
   //[SupportedChainId.KOVAN]: 'kovan.',
-  //[SupportedChainId.OPTIMISM]: 'optimistic.',
+  [SupportedChainId.OPTIMISM]: 'https://optimistic.etherscan.io',
+  [SupportedChainId.BASE]: 'https://basescan.org',
   //[SupportedChainId.OPTIMISTIC_KOVAN]: 'kovan-optimistic.',
 }
 

@@ -69,6 +69,8 @@ export const initialState: TokensState = {
     [SupportedNetwork.ETHEREUM]: {},
     [SupportedNetwork.FANTOM]: {},
     [SupportedNetwork.ARBITRUM]: {},
+    [SupportedNetwork.OPTIMISM]: {},
+    [SupportedNetwork.BASE]: {},
   },
 }
 

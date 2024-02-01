@@ -35,11 +35,11 @@ export enum SupportedNetwork {
   ETHEREUM,
   FANTOM,
   ARBITRUM,
-  //OPTIMISM,
+  OPTIMISM,
   //POLYGON,
   //CELO,
   //BNB,
-  //BASE,
+  BASE,
   //AVALANCHE,
 }
 
@@ -86,17 +86,17 @@ export const ArbitrumNetworkInfo: NetworkInfo = {
   primaryColor: '#0490ED',
   secondaryColor: '#96BEDC',
 }
-//
-//export const OptimismNetworkInfo: NetworkInfo = {
-//  chainId: ChainId.OPTIMISM,
-//  id: SupportedNetwork.OPTIMISM,
-//  route: 'optimism',
-//  name: 'Optimism',
-//  bgColor: '#F01B36',
-//  primaryColor: '#F01B36',
-//  secondaryColor: '#FB7876',
-//  imageURL: OPTIMISM_LOGO_URL,
-//}
+
+export const OptimismNetworkInfo: NetworkInfo = {
+  chainId: ChainId.OPTIMISM,
+  id: SupportedNetwork.OPTIMISM,
+  route: 'optimism',
+  name: 'Optimism',
+  bgColor: '#F01B36',
+  primaryColor: '#F01B36',
+  secondaryColor: '#FB7876',
+  imageURL: OPTIMISM_LOGO_URL,
+}
 //
 //export const PolygonNetworkInfo: NetworkInfo = {
 //  chainId: ChainId.POLYGON,
@@ -130,16 +130,16 @@ export const ArbitrumNetworkInfo: NetworkInfo = {
 //  imageURL: BNB_LOGO_URL,
 //}
 //
-//export const BaseNetworkInfo: NetworkInfo = {
-//  chainId: ChainId.BASE,
-//  id: SupportedNetwork.BASE,
-//  route: 'base',
-//  name: 'Base',
-//  bgColor: '#0052ff',
-//  primaryColor: '#0052ff',
-//  secondaryColor: '#0052ff',
-//  imageURL: BASE_LOGO_URL,
-//}
+export const BaseNetworkInfo: NetworkInfo = {
+  chainId: ChainId.BASE,
+  id: SupportedNetwork.BASE,
+  route: 'base',
+  name: 'Base',
+  bgColor: '#0052ff',
+  primaryColor: '#0052ff',
+  secondaryColor: '#0052ff',
+  imageURL: BASE_LOGO_URL,
+}
 //
 //export const AvalancheNetworkInfo: NetworkInfo = {
 //  chainId: 43114,
@@ -152,4 +152,10 @@ export const ArbitrumNetworkInfo: NetworkInfo = {
 //  imageURL: AVALANCHE_LOGO_URL,
 //}
 //
-export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [EthereumNetworkInfo, FantomNetworkInfo, ArbitrumNetworkInfo]
+export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [
+  EthereumNetworkInfo,
+  FantomNetworkInfo,
+  ArbitrumNetworkInfo,
+  OptimismNetworkInfo,
+  BaseNetworkInfo,
+]

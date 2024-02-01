@@ -12,8 +12,10 @@ export const FANTOM_ADDRESS = '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83'
 
 const WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
 const ARBITRUM_WETH_ADDRESS = '0x82af49447d8a07e3bd95bd0d56f35241523fbab1'
+const OPTIMISM_WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
+const BASE_WETH_ADDRESS = '0x4200000000000000000000000000000000000006'
 
-export const WETH_ADDRESSES = [WETH_ADDRESS, ARBITRUM_WETH_ADDRESS]
+export const WETH_ADDRESSES = [WETH_ADDRESS, ARBITRUM_WETH_ADDRESS, OPTIMISM_WETH_ADDRESS, BASE_WETH_ADDRESS]
 
 export const TOKEN_HIDE: { [key: string]: string[] } = {
   [SupportedNetwork.ETHEREUM]: [
@@ -25,11 +27,11 @@ export const TOKEN_HIDE: { [key: string]: string[] } = {
   //[SupportedNetwork.POLYGON]: ['0x8d52c2d70a7c28a9daac2ff12ad9bfbf041cd318'],
   [SupportedNetwork.FANTOM]: [],
   [SupportedNetwork.ARBITRUM]: [],
-  //[SupportedNetwork.OPTIMISM]: [],
+  [SupportedNetwork.OPTIMISM]: [],
   //[SupportedNetwork.CELO]: [],
   //[SupportedNetwork.BNB]: [],
   //[SupportedNetwork.AVALANCHE]: [],
-  //[SupportedNetwork.BASE]: [],
+  [SupportedNetwork.BASE]: [],
 }
 
 export const POOL_HIDE: { [key: string]: string[] } = {
@@ -45,11 +47,11 @@ export const POOL_HIDE: { [key: string]: string[] } = {
   //[SupportedNetwork.POLYGON]: ['0x5f616541c801e2b9556027076b730e0197974f6a'],
   [SupportedNetwork.FANTOM]: [],
   [SupportedNetwork.ARBITRUM]: [],
-  //[SupportedNetwork.OPTIMISM]: [],
+  [SupportedNetwork.OPTIMISM]: [],
   //[SupportedNetwork.CELO]: [],
   //[SupportedNetwork.BNB]: [],
   //[SupportedNetwork.AVALANCHE]: [],
-  //[SupportedNetwork.BASE]: [],
+  [SupportedNetwork.BASE]: [],
 }
 
 export const START_BLOCKS: { [key: string]: number } = {
@@ -57,11 +59,11 @@ export const START_BLOCKS: { [key: string]: number } = {
   [SupportedNetwork.FANTOM]: 71457899,
   //[SupportedNetwork.POLYGON]: 25459720,
   [SupportedNetwork.ARBITRUM]: 170576190,
-  //[SupportedNetwork.OPTIMISM]: 10028767,
+  [SupportedNetwork.OPTIMISM]: 114235066,
   //[SupportedNetwork.CELO]: 13916355,
   //[SupportedNetwork.BNB]: 26324014,
   //[SupportedNetwork.AVALANCHE]: 31422450,
-  //[SupportedNetwork.BASE]: 1371680,
+  [SupportedNetwork.BASE]: 8942718,
 }
 
 export interface WalletInfo {

@@ -47,7 +47,7 @@ async function fetchChartData(client: ApolloClient<NormalizedCacheObject>) {
     volumeUSD: string
     tvlUSD: string
   }[] = []
-  const startTimestamp = client === arbitrumClient ? 1693396228 : client === optimismClient ? 1693396228 : 1693396228
+  const startTimestamp = client === arbitrumClient ? 1705575608 : client === optimismClient ? 1705575608 : 1703396228
   const endTimestamp = dayjs.utc().unix()
 
   let error = false
@@ -107,17 +107,6 @@ async function fetchChartData(client: ApolloClient<NormalizedCacheObject>) {
         latestTvl = formattedExisting[currentDayIndex].tvlUSD
       }
       timestamp = nextDay
-    }
-
-    if (client === optimismClient) {
-      formattedExisting[18855] = {
-        ...formattedExisting[18855],
-        tvlUSD: 13480000,
-      }
-      formattedExisting[18856] = {
-        ...formattedExisting[18856],
-        tvlUSD: 13480000,
-      }
     }
 
     return {

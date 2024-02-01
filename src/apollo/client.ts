@@ -178,7 +178,7 @@ export const arbitrumBlockClient = new ApolloClient({
 })
 
 export const optimismClient = new ApolloClient({
-  uri: 'https://api.thegraph.com/subgraphs/name/ianlapham/optimism-post-regenesis?source=uniswap',
+  uri: 'https://api.thegraph.com/subgraphs/name/solidlylabs/solidly-v3-optimism',
   cache: new InMemoryCache({
     typePolicies: {
       Token: {
@@ -206,7 +206,7 @@ export const optimismClient = new ApolloClient({
 })
 
 export const baseClient = new ApolloClient({
-  uri: 'https://api.studio.thegraph.com/query/48211/uniswap-v3-base/version/latest?source=uniswap',
+  uri: 'https://api.studio.thegraph.com/query/64631/solidly-v3-base/version/latest',
   cache: new InMemoryCache({
     typePolicies: {
       Token: {
@@ -292,7 +292,7 @@ export const bscBlockClient = new ApolloClient({
 })
 
 export const optimismBlockClient = new ApolloClient({
-  uri: 'https://api.thegraph.com/subgraphs/name/ianlapham/uni-testing-subgraph',
+  uri: 'https://api.thegraph.com/subgraphs/name/lyra-finance/optimism-mainnet-blocks',
   cache: new InMemoryCache(),
   queryDeduplication: true,
   defaultOptions: {
