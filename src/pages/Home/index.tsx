@@ -24,6 +24,7 @@ import { useActiveNetworkVersion } from 'state/application/hooks'
 import { useTransformedVolumeData } from 'hooks/chart'
 import { SmallOptionButton } from 'components/Button'
 import { VolumeWindow } from 'types'
+import { SupportedNetwork } from 'constants/networks'
 
 const ChartWrapper = styled.div`
   width: 49%;
@@ -41,6 +42,7 @@ export default function Home() {
   const theme = useTheme()
 
   const [activeNetwork] = useActiveNetworkVersion()
+  const isOmnichain = activeNetwork.id === SupportedNetwork.OMNICHAIN
 
   const [protocolData] = useProtocolData()
   const [transactions] = useProtocolTransactions()
@@ -66,15 +68,34 @@ export default function Home() {
       .filter(notEmpty)
   }, [allPoolData])
 
+  const volumeAndTvlOmnichainLast24H = useMemo(() => {
+    if (chartData) {
+      const filteredData = chartData.filter((day) => day.date > Date.now() / 1000 - 24 * 60 * 60)
+
+      const summedData = filteredData.reduce(
+        (acc, day) => ({
+          volumeSum: acc.volumeSum + day.volumeUSD,
+          tvlSum: acc.tvlSum + day.tvlUSD,
+        }),
+        { volumeSum: 0, tvlSum: 0 }
+      )
+
+      return summedData
+    }
+
+    return { volumeSum: undefined, tvlSum: undefined }
+  }, [chartData])
+
   // if hover value undefined, reset to current day value
   useEffect(() => {
-    if (volumeHover === undefined && protocolData) {
-      setVolumeHover(protocolData.volumeUSD)
+    if (volumeHover === undefined && (protocolData || volumeAndTvlOmnichainLast24H.volumeSum)) {
+      setVolumeHover(protocolData?.volumeUSD || volumeAndTvlOmnichainLast24H.volumeSum)
     }
   }, [protocolData, volumeHover])
+
   useEffect(() => {
-    if (liquidityHover === undefined && protocolData) {
-      setLiquidityHover(protocolData.tvlUSD)
+    if (liquidityHover === undefined && (protocolData || volumeAndTvlOmnichainLast24H.tvlSum)) {
+      setLiquidityHover(protocolData?.tvlUSD || volumeAndTvlOmnichainLast24H.tvlSum)
     }
   }, [liquidityHover, protocolData])
 
@@ -119,10 +140,10 @@ export default function Home() {
 
   const tvlValue = useMemo(() => {
     if (liquidityHover) {
-      return formatDollarAmount(liquidityHover, 2, true)
+      return formatDollarAmount(liquidityHover || volumeAndTvlOmnichainLast24H.tvlSum, 2, true)
     }
-    return formatDollarAmount(protocolData?.tvlUSD, 2, true)
-  }, [liquidityHover, protocolData?.tvlUSD])
+    return formatDollarAmount(protocolData?.tvlUSD || volumeAndTvlOmnichainLast24H.tvlSum, 2, true)
+  }, [liquidityHover, protocolData?.tvlUSD, volumeAndTvlOmnichainLast24H.tvlSum])
 
   return (
     <PageWrapper>
@@ -214,40 +235,76 @@ export default function Home() {
               <RowFixed>
                 <RowFixed mr="20px">
                   <TYPE.main mr="4px">Volume 24H: </TYPE.main>
-                  <TYPE.label mr="4px">{formatDollarAmount(protocolData?.volumeUSD)}</TYPE.label>
-                  <Percent value={protocolData?.volumeUSDChange} wrap={true} />
+                  <TYPE.label mr="4px">
+                    {formatDollarAmount(isOmnichain ? volumeAndTvlOmnichainLast24H.volumeSum : protocolData?.volumeUSD)}
+                  </TYPE.label>
+                  {!isOmnichain && (
+                    <Percent
+                      value={isOmnichain ? volumeAndTvlOmnichainLast24H.volumeSum : protocolData?.volumeUSDChange}
+                      wrap={true}
+                    />
+                  )}
                 </RowFixed>
-                <RowFixed mr="20px">
-                  <TYPE.main mr="4px">Fees 24H: </TYPE.main>
-                  <TYPE.label mr="4px">{formatDollarAmount(protocolData?.feesUSD)}</TYPE.label>
-                  <Percent value={protocolData?.feeChange} wrap={true} />
-                </RowFixed>
+                {!isOmnichain && (
+                  <RowFixed mr="20px">
+                    <TYPE.main mr="4px">Fees 24H: </TYPE.main>
+                    <TYPE.label mr="4px">
+                      {formatDollarAmount(isOmnichain ? volumeAndTvlOmnichainLast24H.volumeSum : protocolData?.feesUSD)}
+                    </TYPE.label>
+                    <Percent
+                      value={
+                        // isOmnichain
+                        //   ? volumeAndTvlOmnichainLast24H.feeChain
+                        //   :
+                        protocolData?.feeChange
+                      }
+                      wrap={true}
+                    />
+                  </RowFixed>
+                )}
                 <HideMedium>
                   <RowFixed mr="20px">
                     <TYPE.main mr="4px">TVL: </TYPE.main>
-                    <TYPE.label mr="4px">{formatDollarAmount(protocolData?.tvlUSD)}</TYPE.label>
+                    <TYPE.label mr="4px">
+                      {formatDollarAmount(isOmnichain ? volumeAndTvlOmnichainLast24H.tvlSum : protocolData?.tvlUSD)}
+                    </TYPE.label>
                     <TYPE.main></TYPE.main>
-                    <Percent value={protocolData?.tvlUSDChange} wrap={true} />
+                    {!isOmnichain && (
+                      <Percent
+                        value={
+                          // isOmnichain
+                          //   ? volumeAndTvlOmnichainLast24H.tvlUSDChange
+                          //   :
+                          protocolData?.tvlUSDChange
+                        }
+                        wrap={true}
+                      />
+                    )}
                   </RowFixed>
                 </HideMedium>
               </RowFixed>
             </RowBetween>
           </DarkGreyCard>
         </HideSmall>
-        <RowBetween>
-          <TYPE.main>Top Tokens</TYPE.main>
-          <StyledInternalLink to="tokens">Explore</StyledInternalLink>
-        </RowBetween>
-        <TokenTable tokenDatas={formattedTokens} />
-        <RowBetween>
-          <TYPE.main>Top Pools</TYPE.main>
-          <StyledInternalLink to="pools">Explore</StyledInternalLink>
-        </RowBetween>
-        <PoolTable poolDatas={poolDatas} />
-        <RowBetween>
-          <TYPE.main>Transactions</TYPE.main>
-        </RowBetween>
-        {transactions ? <TransactionsTable transactions={transactions} color={activeNetwork.primaryColor} /> : null}
+        {!isOmnichain && (
+          <>
+            <RowBetween>
+              <TYPE.main>Top Tokens</TYPE.main>
+              <StyledInternalLink to="tokens">Explore</StyledInternalLink>
+            </RowBetween>
+
+            <TokenTable tokenDatas={formattedTokens} />
+            <RowBetween>
+              <TYPE.main>Top Pools</TYPE.main>
+              <StyledInternalLink to="pools">Explore</StyledInternalLink>
+            </RowBetween>
+            <PoolTable poolDatas={poolDatas} />
+            <RowBetween>
+              <TYPE.main>Transactions</TYPE.main>
+            </RowBetween>
+            {transactions ? <TransactionsTable transactions={transactions} color={activeNetwork.primaryColor} /> : null}
+          </>
+        )}
       </AutoColumn>
     </PageWrapper>
   )

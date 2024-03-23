@@ -10,6 +10,7 @@ import NetworkDropdown from 'components/Menu/NetworkDropdown'
 import { useActiveNetworkVersion } from 'state/application/hooks'
 import { networkPrefix } from 'utils/networkPrefix'
 import { AutoColumn } from 'components/Column'
+import { SupportedNetwork } from 'constants/networks'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -62,7 +63,7 @@ const HeaderLinks = styled(Row)`
   @media (max-width: 1080px) {
     padding: 0.5rem;
     justify-content: flex-end;
-  } ;
+  }
 `
 
 const Title = styled(NavLink)`
@@ -156,6 +157,7 @@ const SmallContentGrouping = styled.div`
 
 export default function Header() {
   const [activeNewtork] = useActiveNetworkVersion()
+  const isOmnichain = activeNewtork.id === SupportedNetwork.OMNICHAIN
 
   return (
     <HeaderFrame>
@@ -173,12 +175,16 @@ export default function Header() {
           >
             Overview
           </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={networkPrefix(activeNewtork) + 'pools'}>
-            Pools
-          </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={networkPrefix(activeNewtork) + 'tokens'}>
-            Tokens
-          </StyledNavLink>
+          {!isOmnichain && (
+            <>
+              <StyledNavLink id={`stake-nav-link`} to={networkPrefix(activeNewtork) + 'pools'}>
+                Pools
+              </StyledNavLink>
+              <StyledNavLink id={`stake-nav-link`} to={networkPrefix(activeNewtork) + 'tokens'}>
+                Tokens
+              </StyledNavLink>
+            </>
+          )}
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>

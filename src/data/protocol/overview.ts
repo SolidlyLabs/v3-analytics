@@ -40,6 +40,7 @@ export function useFetchProtocolData(
   data: ProtocolData | undefined
 } {
   // get appropriate clients if override needed
+  // TODO update for omnichain
   const { dataClient, blockClient } = useClients()
   const activeDataClient = dataClientOverride ?? dataClient
   const activeBlockClient = blockClientOverride ?? blockClient
@@ -55,15 +56,17 @@ export function useFetchProtocolData(
   // fetch all data
   const { loading, error, data } = useQuery<GlobalResponse>(GLOBAL_DATA(), { client: activeDataClient })
 
-  const { loading: loading24, error: error24, data: data24 } = useQuery<GlobalResponse>(
-    GLOBAL_DATA(block24?.number ?? 0),
-    { client: activeDataClient }
-  )
+  const {
+    loading: loading24,
+    error: error24,
+    data: data24,
+  } = useQuery<GlobalResponse>(GLOBAL_DATA(block24?.number ?? 0), { client: activeDataClient })
 
-  const { loading: loading48, error: error48, data: data48 } = useQuery<GlobalResponse>(
-    GLOBAL_DATA(block48?.number ?? 0),
-    { client: activeDataClient }
-  )
+  const {
+    loading: loading48,
+    error: error48,
+    data: data48,
+  } = useQuery<GlobalResponse>(GLOBAL_DATA(block48?.number ?? 0), { client: activeDataClient })
 
   const anyError = Boolean(error || error24 || error48 || blockError)
   const anyLoading = Boolean(loading || loading24 || loading48)

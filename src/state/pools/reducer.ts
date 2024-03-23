@@ -85,6 +85,7 @@ export interface PoolsState {
 
 export const initialState: PoolsState = {
   byAddress: {
+    [SupportedNetwork.OMNICHAIN]: {},
     [SupportedNetwork.ETHEREUM]: {},
     [SupportedNetwork.FANTOM]: {},
     [SupportedNetwork.ARBITRUM]: {},
@@ -111,7 +112,7 @@ export default createReducer(initialState, (builder) =>
     })
     // add address to byAddress keys if not included yet
     .addCase(addPoolKeys, (state, { payload: { poolAddresses, networkId } }) => {
-      poolAddresses.map((address) => {
+      ;(poolAddresses || []).map((address) => {
         if (!state.byAddress[networkId][address]) {
           state.byAddress[networkId][address] = {
             data: undefined,

@@ -5,10 +5,10 @@ import utc from 'dayjs/plugin/utc'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import gql from 'graphql-tag'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
-import { useActiveNetworkVersion, useClients } from 'state/application/hooks'
-import { arbitrumClient, optimismClient } from 'apollo/client'
+import { useActiveNetworkVersion, useAllClients, useClients } from 'state/application/hooks'
 import { SupportedNetwork } from 'constants/networks'
 import { useDerivedProtocolTVLHistory } from './derived'
+import { SupportedChainId, clientToChainId, startTimestampChainId } from 'constants/chains'
 
 // format dayjs with the libraries that we need
 dayjs.extend(utc)
@@ -47,7 +47,9 @@ async function fetchChartData(client: ApolloClient<NormalizedCacheObject>) {
     volumeUSD: string
     tvlUSD: string
   }[] = []
-  const startTimestamp = client === arbitrumClient ? 1705575608 : client === optimismClient ? 1705575608 : 1703396228
+  const clientChainId = clientToChainId.get(client)
+
+  const startTimestamp = clientChainId ? startTimestampChainId[clientChainId] : 1703396228
   const endTimestamp = dayjs.utc().unix()
 
   let error = false
@@ -56,7 +58,11 @@ async function fetchChartData(client: ApolloClient<NormalizedCacheObject>) {
 
   try {
     while (!allFound) {
-      const { data: chartResData, error, loading } = await client.query<ChartResults>({
+      const {
+        data: chartResData,
+        error,
+        loading,
+      } = await client.query<ChartResults>({
         query: GLOBAL_CHART,
         variables: {
           startTime: startTimestamp,
@@ -131,7 +137,7 @@ export function useFetchGlobalChartData(): {
   const [data, setData] = useState<{ [network: string]: ChartDayData[] | undefined }>()
   const [error, setError] = useState(false)
   const { dataClient } = useClients()
-
+  const { dataClients } = useAllClients()
   const derivedData = useDerivedProtocolTVLHistory()
 
   const [activeNetworkVersion] = useActiveNetworkVersion()
@@ -143,13 +149,42 @@ export function useFetchGlobalChartData(): {
 
   useEffect(() => {
     async function fetch() {
-      const { data, error } = await fetchChartData(dataClient)
-      if (data && !error) {
-        setData({
-          [activeNetworkVersion.id]: data,
-        })
-      } else if (error) {
-        setError(true)
+      if (activeNetworkVersion.id === SupportedNetwork.OMNICHAIN) {
+        const networkData: { [day: string]: ChartDayData } = {}
+        for (const client of dataClients) {
+          const { data, error } = await fetchChartData(client)
+          if (data && !error) {
+            for (const dayData of data) {
+              if (!networkData[dayData.date]) {
+                networkData[dayData.date] = dayData
+              }
+              networkData[dayData.date].date = dayData.date
+              networkData[dayData.date].tvlUSD = networkData[dayData.date].tvlUSD
+                ? networkData[dayData.date].tvlUSD + dayData.tvlUSD
+                : 0 + dayData.tvlUSD
+              networkData[dayData.date].volumeUSD = networkData[dayData.date].volumeUSD
+                ? networkData[dayData.date].tvlUSD + dayData.volumeUSD
+                : 0 + dayData.tvlUSD
+            }
+          } else if (error) {
+            setError(true)
+            break
+          }
+        }
+        const chartDayDataFull: ChartDayData[] = []
+        for (const dayData of Object.values(networkData)) {
+          chartDayDataFull.push(dayData)
+        }
+        setData({ [SupportedNetwork.OMNICHAIN]: chartDayDataFull })
+      } else {
+        const { data, error } = await fetchChartData(dataClient)
+        if (data && !error) {
+          setData({
+            [activeNetworkVersion.id]: data,
+          })
+        } else if (error) {
+          setError(true)
+        }
       }
     }
     if (!indexedData && !error && !shouldUserDerivedData) {

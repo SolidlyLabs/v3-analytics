@@ -123,6 +123,7 @@ export function useSubgraphStatus(): [
 export function useActiveNetworkVersion(): [NetworkInfo, (activeNetworkVersion: NetworkInfo) => void] {
   const dispatch = useDispatch()
   const activeNetwork = useSelector((state: AppState) => state.application.activeNetworkVersion)
+
   const update = useCallback(
     (activeNetworkVersion: NetworkInfo) => {
       dispatch(updateActiveNetworkVersion({ activeNetworkVersion }))
@@ -136,6 +137,8 @@ export function useActiveNetworkVersion(): [NetworkInfo, (activeNetworkVersion: 
 export function useDataClient(): ApolloClient<NormalizedCacheObject> {
   const [activeNetwork] = useActiveNetworkVersion()
   switch (activeNetwork.id) {
+    case SupportedNetwork.OMNICHAIN:
+      return fantomClient
     case SupportedNetwork.ETHEREUM:
       return client
     case SupportedNetwork.FANTOM:
@@ -157,6 +160,20 @@ export function useDataClient(): ApolloClient<NormalizedCacheObject> {
     default:
       return client
   }
+}
+
+export function useAllClient(): ApolloClient<NormalizedCacheObject>[] {
+  return [
+    client,
+    fantomClient,
+    arbitrumClient,
+    optimismClient,
+    //polygonClient,
+    //celoClient,
+    //bscClient,
+    //avalancheClient,
+    baseClient,
+  ]
 }
 
 // get the apollo client related to the active network for fetching blocks
@@ -186,6 +203,20 @@ export function useBlockClient(): ApolloClient<NormalizedCacheObject> {
   }
 }
 
+export function useAllBlockClient(): ApolloClient<NormalizedCacheObject>[] {
+  return [
+    blockClient,
+    fantomBlockClient,
+    arbitrumBlockClient,
+    optimismBlockClient,
+    //polygonBlockClient,
+    //celoBlockClient,
+    //bscBlockClient,
+    //avalancheBlockClient,
+    baseBlockClient,
+  ]
+}
+
 // Get all required subgraph clients
 export function useClients(): {
   dataClient: ApolloClient<NormalizedCacheObject>
@@ -196,5 +227,17 @@ export function useClients(): {
   return {
     dataClient,
     blockClient,
+  }
+}
+
+export function useAllClients(): {
+  dataClients: ApolloClient<NormalizedCacheObject>[]
+  blockClients: ApolloClient<NormalizedCacheObject>[]
+} {
+  const dataClients = useAllClient()
+  const blockClients = useAllBlockClient()
+  return {
+    dataClients,
+    blockClients,
   }
 }

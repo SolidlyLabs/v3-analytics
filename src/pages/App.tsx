@@ -100,7 +100,7 @@ export default function App() {
       setActiveNetwork(EthereumNetworkInfo)
     } else {
       SUPPORTED_NETWORK_VERSIONS.map((n) => {
-        if (location.pathname.includes(n.route.toLocaleLowerCase())) {
+        if (location.pathname.includes(n.route.toLocaleLowerCase()) && n.route !== '') {
           setActiveNetwork(n)
         }
       })

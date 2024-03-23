@@ -19,6 +19,7 @@ import HoverInlineText from 'components/HoverInlineText'
 import { TOKEN_HIDE, POOL_HIDE } from '../../constants/index'
 import { useActiveNetworkVersion } from 'state/application/hooks'
 import { networkPrefix } from 'utils/networkPrefix'
+import { SupportedNetwork } from 'constants/networks'
 
 const Container = styled.div`
   position: relative;
@@ -37,7 +38,7 @@ const Wrapper = styled(Row)`
 
   @media (max-width: 1080px) {
     width: 100%;
-  } ;
+  }
 `
 
 const StyledInput = styled.input`
@@ -156,12 +157,14 @@ const OptionButton = styled.div<{ enabled: boolean }>`
 const Search = ({ ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
   const history = useHistory()
   const [activeNetwork] = useActiveNetworkVersion()
+  const isOmnichain = activeNetwork.id === SupportedNetwork.OMNICHAIN
 
   const ref = useRef<HTMLInputElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
 
   const handleDown = useCallback(() => {
+    if (isOmnichain) return
     if (ref != null && ref.current !== null) {
       ref.current.focus()
     }
@@ -185,6 +188,7 @@ const Search = ({ ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
   const [poolsShown, setPoolsShown] = useState(3)
 
   const handleClick = (e: any) => {
+    // if (isOmnichain) return
     if (!(menuRef.current && menuRef.current.contains(e.target)) && !(ref.current && ref.current.contains(e.target))) {
       setPoolsShown(3)
       setTokensShown(3)
@@ -226,19 +230,21 @@ const Search = ({ ...rest }: React.HTMLAttributes<HTMLDivElement>) => {
   )
 
   return (
-    <Hotkeys keyName="command+/" onKeyDown={handleDown}>
+    <Hotkeys keyName="command+/" onKeyDown={handleDown} disabled={isOmnichain}>
       {showMenu ? <Blackout /> : null}
       <Container>
         <Wrapper {...rest}>
           <StyledInput
             type="text"
             value={value}
+            disabled={isOmnichain}
             onChange={(e) => {
               setValue(e.target.value)
             }}
-            placeholder="Search pools or tokens"
+            placeholder={isOmnichain ? 'Not yet available for Omnichain' : 'Search pools or tokens'}
             ref={ref}
             onFocus={() => {
+              if (isOmnichain) return
               setFocused(true)
               setShowMenu(true)
             }}

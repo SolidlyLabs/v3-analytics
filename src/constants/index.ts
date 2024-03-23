@@ -35,6 +35,7 @@ export const TOKEN_HIDE: { [key: string]: string[] } = {
 }
 
 export const POOL_HIDE: { [key: string]: string[] } = {
+  [SupportedNetwork.OMNICHAIN]: [],
   [SupportedNetwork.ETHEREUM]: [
     '0x86d257cdb7bc9c0df10e84c8709697f92770b335',
     '0xf8dbd52488978a79dfe6ffbd81a01fc5948bf9ee',

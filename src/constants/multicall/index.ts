@@ -1,6 +1,7 @@
 import MULTICALL_ABI from './abi.json'
 
 enum ChainId {
+  OMNICHAIN = 0,
   MAINNET = 1,
   FANTOM = 250,
   GOERLI = 5,
@@ -20,10 +21,11 @@ enum ChainId {
   BNB = 56,
   AVALANCHE = 43114,
   BASE_GOERLI = 84531,
-  BASE = 8453
+  BASE = 8453,
 }
 
 const MULTICALL_NETWORKS: { [chainId: number]: string } = {
+  [ChainId.OMNICHAIN]: '0xcA11bde05977b3631167028862bE2a173976CA11',
   [ChainId.MAINNET]: '0xeefBa1e63905eF1D7ACbA5a8513c70307C1cE441',
   [ChainId.FANTOM]: '0xcA11bde05977b3631167028862bE2a173976CA11',
   [ChainId.ARBITRUM_ONE]: '0xcA11bde05977b3631167028862bE2a173976CA11',

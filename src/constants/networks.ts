@@ -9,6 +9,7 @@ import BASE_LOGO_URL from '../assets/images/base-logo.svg'
 import AVALANCHE_LOGO_URL from '../assets/images/avalanche-logo.png'
 
 export enum ChainId {
+  OMNICHAIN = 0,
   MAINNET = 1,
   FANTOM = 250,
   GOERLI = 5,
@@ -41,6 +42,7 @@ export enum SupportedNetwork {
   //BNB,
   BASE,
   //AVALANCHE,
+  OMNICHAIN,
 }
 
 export type NetworkInfo = {
@@ -52,6 +54,17 @@ export type NetworkInfo = {
   bgColor: string
   primaryColor: string
   secondaryColor: string
+}
+
+export const OmnichainNetworkInfo: NetworkInfo = {
+  chainId: ChainId.OMNICHAIN,
+  id: SupportedNetwork.OMNICHAIN,
+  route: 'omnichain',
+  name: 'Omnichain',
+  bgColor: '#2dcb4b',
+  primaryColor: '#2dcb4b',
+  secondaryColor: '#ffffff',
+  imageURL: ETHEREUM_LOGO_URL,
 }
 
 export const EthereumNetworkInfo: NetworkInfo = {
@@ -153,6 +166,7 @@ export const BaseNetworkInfo: NetworkInfo = {
 //}
 //
 export const SUPPORTED_NETWORK_VERSIONS: NetworkInfo[] = [
+  OmnichainNetworkInfo,
   EthereumNetworkInfo,
   FantomNetworkInfo,
   ArbitrumNetworkInfo,

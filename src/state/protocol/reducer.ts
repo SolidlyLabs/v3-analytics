@@ -41,6 +41,7 @@ const DEFAULT_INITIAL_STATE = {
 }
 
 export const initialState: ProtocolState = {
+  [SupportedNetwork.OMNICHAIN]: DEFAULT_INITIAL_STATE,
   [SupportedNetwork.ETHEREUM]: DEFAULT_INITIAL_STATE,
   [SupportedNetwork.FANTOM]: DEFAULT_INITIAL_STATE,
   [SupportedNetwork.ARBITRUM]: DEFAULT_INITIAL_STATE,

@@ -94,7 +94,6 @@ const DataRow = ({ transaction, color }: { transaction: Transaction; color?: str
   const outputTokenSymbol = transaction.amountToken0 < 0 ? transaction.token0Symbol : transaction.token1Symbol
   const inputTokenSymbol = transaction.amountToken1 < 0 ? transaction.token0Symbol : transaction.token1Symbol
   const [activeNetwork] = useActiveNetworkVersion()
-  console.log(activeNetwork)
   const theme = useTheme()
 
   return (

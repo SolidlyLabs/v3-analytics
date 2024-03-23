@@ -3,6 +3,7 @@ import { healthClient } from './../../apollo/client'
 import { useQuery } from '@apollo/client'
 import gql from 'graphql-tag'
 import {
+  OmnichainNetworkInfo,
   EthereumNetworkInfo,
   FantomNetworkInfo,
   ArbitrumNetworkInfo,
@@ -66,6 +67,8 @@ export function useFetchedSubgraphStatus(): {
           ? 'solidlylabs/solidly-v3-optimism'
           : activeNetwork.chainId === BaseNetworkInfo.chainId
           ? '64631/solidly-v3-base/version/latest'
+          : activeNetwork.chainId === OmnichainNetworkInfo.chainId
+          ? 'solidlylabs/solidly-v3-optimism'
           : 'solidlylabs/solidly-v3',
     },
   })

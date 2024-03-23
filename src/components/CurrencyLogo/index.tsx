@@ -11,6 +11,8 @@ import { ChainId } from '../../constants/networks'
 
 export function chainIdToNetworkName(networkId: ChainId) {
   switch (networkId) {
+    case ChainId.OMNICHAIN:
+      return 'omnichain'
     case ChainId.MAINNET:
       return 'ethereum'
     case ChainId.FANTOM:
