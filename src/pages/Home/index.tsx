@@ -16,7 +16,7 @@ import { PageWrapper, ThemedBackgroundGlobal } from 'pages/styled'
 import { unixToDate } from 'utils/date'
 import BarChart from 'components/BarChart/alt'
 import { useAllPoolData } from 'state/pools/hooks'
-import { notEmpty } from 'utils'
+import { hideTrollPool, hideTrollToken, notEmpty } from 'utils'
 import TransactionsTable from '../../components/TransactionsTable'
 import { useAllTokenData } from 'state/tokens/hooks'
 import { MonoSpace } from 'components/shared'
@@ -66,6 +66,7 @@ export default function Home() {
     return Object.values(allPoolData)
       .map((p) => p.data)
       .filter(notEmpty)
+      .filter(hideTrollPool)
   }, [allPoolData])
 
   const volumeAndTvlOmnichainLast24H = useMemo(() => {
@@ -134,6 +135,7 @@ export default function Home() {
     return Object.values(allTokens)
       .map((t) => t.data)
       .filter(notEmpty)
+      .filter(hideTrollToken)
   }, [allTokens])
 
   const [volumeWindow, setVolumeWindow] = useState(VolumeWindow.weekly)

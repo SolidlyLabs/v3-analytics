@@ -17,6 +17,8 @@ import {
 } from 'constants/networks'
 import JSBI from 'jsbi'
 import { TokenAddressMap } from '../state/lists/hooks'
+import { TokenData } from 'state/tokens/reducer'
+import { PoolData } from 'state/pools/reducer'
 //import { OptimismNetworkInfo } from '../constants/networks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
@@ -124,4 +126,14 @@ export function feeTierPercent(fee: number): string {
 
 export function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
   return value !== null && value !== undefined
+}
+
+export function hideTrollToken(value: TokenData): value is TokenData {
+  return !/SERAPH|KENNETH|CUNT|EVAWAT|JITKILL|BATMAN\/SPIDER|ANON|ONL2S|REWARDER|unknown|HARDERTHANUNIV4|RDSOON@ND|LOL*|UNGRATEFUL|MOVEFORBESTAPRSONARBITRUM/.test(
+    value.symbol
+  )
+}
+
+export function hideTrollPool(value: PoolData): value is PoolData {
+  return hideTrollToken(value.token0 as unknown as TokenData) && hideTrollToken(value.token1 as unknown as TokenData)
 }
