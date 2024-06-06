@@ -1,8 +1,8 @@
-## Uniswap Info V3
+## Solidly Info V3
 
-An open sourced interface for Uniswap V3 analytics. 
+An open sourced interface for Solidly V3 analytics. 
 
-Info URL: https://info.uniswap.org/#/
+Analytics URL: https://analytics.solidly.com/#/
 
 ## Development
 
